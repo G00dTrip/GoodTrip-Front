@@ -1,0 +1,12 @@
+header {
+  height: 100px;
+  background-color: grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ul {
+  display: flex;
+  gap: 30px;
+}

@@ -1,0 +1,16 @@
+.planning {
+  display: flex;
+  gap: 10px;
+}
+
+.dayName {
+  width: 150px;
+  height: 50px;
+  border: 1px black solid;
+}
+
+.timeSlot {
+  width: 150px;
+  height: 50px;
+  border: 1px black solid;
+}
