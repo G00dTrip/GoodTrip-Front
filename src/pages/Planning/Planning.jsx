@@ -12,6 +12,9 @@ const Planning = () => {
   const [days, setDays] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [planning, setPlanning] = useState([]);
+  const [hours, setHours] = useState([
+    7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+  ]);
 
   const whatTheDay = (numberOfTheDay) => {
     switch (numberOfTheDay) {
@@ -82,6 +85,8 @@ const Planning = () => {
 
   useEffect(() => {
     if (tripStart && tripEnd) {
+      //FAIRE VERIFICATION DE LA COHERENCE DES DATES
+
       const daysArray = eachDayOfInterval({ start: tripStart, end: tripEnd });
       setDays(daysArray);
 
@@ -90,18 +95,12 @@ const Planning = () => {
       daysArray.map((day) =>
         planningArray.push({
           date: day,
-          slot1: "",
-          slot2: "",
-          slot3: "",
-          slot4: "",
-          slot5: "",
-          slot6: "",
         })
       );
 
       setPlanning(planningArray);
 
-      console.log("planningArray==", planningArray);
+      console.log("dans le use effect");
 
       setIsLoading(false);
     }
@@ -141,51 +140,44 @@ const Planning = () => {
           <p>Choisissez vos dates</p>
         ) : (
           <div className="planning">
-            {days.map((day, index) => {
+            <div className="hours">
+              <div className="dayName">
+                <p>Horaires</p>
+              </div>
+              {hours.map((hour, index) => {
+                return (
+                  <div className="timeSlot" key={index}>
+                    {hour}h
+                  </div>
+                );
+              })}
+            </div>
+
+            {days.map((day, indexDay) => {
               return (
-                <div className="day" key={index}>
+                <div className="day" key={indexDay}>
                   <div className="dayName">
                     <p>
                       {whatTheDay(getDay(day))} {getDate(day)}{" "}
                       {whatTheMonth(getMonth(day))}
                     </p>
                   </div>
-                  <TimeSlot
-                    index={index}
-                    slotNumber="1"
-                    planning={planning}
-                    setPlanning={setPlanning}
-                  />
-                  <TimeSlot
-                    index={index}
-                    slotNumber="2"
-                    planning={planning}
-                    setPlanning={setPlanning}
-                  />
-                  <TimeSlot
-                    index={index}
-                    slotNumber="3"
-                    planning={planning}
-                    setPlanning={setPlanning}
-                  />
-                  <TimeSlot
-                    index={index}
-                    slotNumber="4"
-                    planning={planning}
-                    setPlanning={setPlanning}
-                  />
-                  <TimeSlot
-                    index={index}
-                    slotNumber="5"
-                    planning={planning}
-                    setPlanning={setPlanning}
-                  />
-                  <TimeSlot
-                    index={index}
-                    slotNumber="6"
-                    planning={planning}
-                    setPlanning={setPlanning}
-                  />
+
+                  {hours.map((hour, indexHour) => {
+                    //Si planning a qqch afficher activité du planning ==> FONCTION A CREER avec boucle sur objet et array.find?
+                    //Voir pour afficher un timeslot uniquement s'il le timeslot précédent ne dure pas plusieurs heures
+                    planning[indexDay][i];
+                    return (
+                      <TimeSlot
+                        indexDay={indexDay}
+                        startHour={hour}
+                        endHour={hour + 1}
+                        planning={planning}
+                        setPlanning={setPlanning}
+                        key={indexHour}
+                      />
+                    );
+                  })}
                 </div>
               );
             })}
