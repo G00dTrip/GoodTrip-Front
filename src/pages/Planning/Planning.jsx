@@ -83,6 +83,26 @@ const Planning = () => {
     }
   };
 
+  const activyAtThisHour = (planning, indexDay, hourToCheck) => {
+    //Cette fonction renvoie l'/les activité(s) qui démarre à cette heure là
+    const result = [];
+    // console.log("planning=", planning);
+    const dayToCheck = planning[indexDay];
+    for (const element in dayToCheck) {
+      if (element !== "date") {
+        // console.log("dans le if");
+        // console.log("heure vérifiée=", dayToCheck[element].startHourActivity);
+        // console.log("heure cherchée=", hourToCheck);
+        if (dayToCheck[element].startHourActivity === hourToCheck) {
+          result.push(dayToCheck[element]);
+        }
+      }
+    }
+    // console.log(`result à ${hourToCheck}=`, result);
+    // console.log(`Array length à ${hourToCheck}=`, result.length);
+    return result;
+  };
+
   useEffect(() => {
     if (tripStart && tripEnd) {
       //FAIRE VERIFICATION DE LA COHERENCE DES DATES
@@ -99,8 +119,6 @@ const Planning = () => {
       );
 
       setPlanning(planningArray);
-
-      console.log("dans le use effect");
 
       setIsLoading(false);
     }
@@ -164,10 +182,18 @@ const Planning = () => {
                   </div>
 
                   {hours.map((hour, indexHour) => {
-                    //Si planning a qqch afficher activité du planning ==> FONCTION A CREER avec boucle sur objet et array.find?
-                    //Voir pour afficher un timeslot uniquement s'il le timeslot précédent ne dure pas plusieurs heures
-                    planning[indexDay][i];
-                    return (
+                    return activyAtThisHour(planning, indexDay, hour).length >
+                      0 ? (
+                      <TimeSlot
+                        indexDay={indexDay}
+                        startHour={hour}
+                        endHour={hour + 1}
+                        planning={planning}
+                        setPlanning={setPlanning}
+                        key={indexHour}
+                        activities={activyAtThisHour(planning, indexDay, hour)}
+                      />
+                    ) : (
                       <TimeSlot
                         indexDay={indexDay}
                         startHour={hour}
