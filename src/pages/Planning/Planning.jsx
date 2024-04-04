@@ -5,6 +5,7 @@ import ActivityItem from "../../components/ActivityItem/ActivityItem";
 import TimeSlot from "../../components/TimeSlot/TimeSlot";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import axios from "axios";
 
 const Planning = () => {
   const [tripStart, setTripStart] = useState(null);
@@ -16,6 +17,7 @@ const Planning = () => {
     7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
   ]);
 
+  //Fonction pour écrire le jour en lettre
   const whatTheDay = (numberOfTheDay) => {
     switch (numberOfTheDay) {
       case 0:
@@ -41,7 +43,7 @@ const Planning = () => {
         break;
     }
   };
-
+  //Fonction pour écrire le mois en lettre
   const whatTheMonth = (numberOfTheMonth) => {
     switch (numberOfTheMonth) {
       case 0:
@@ -86,20 +88,14 @@ const Planning = () => {
   const activyAtThisHour = (planning, indexDay, hourToCheck) => {
     //Cette fonction renvoie l'/les activité(s) qui démarre à cette heure là
     const result = [];
-    // console.log("planning=", planning);
     const dayToCheck = planning[indexDay];
     for (const element in dayToCheck) {
       if (element !== "date") {
-        // console.log("dans le if");
-        // console.log("heure vérifiée=", dayToCheck[element].startHourActivity);
-        // console.log("heure cherchée=", hourToCheck);
         if (dayToCheck[element].startHourActivity === hourToCheck) {
           result.push(dayToCheck[element]);
         }
       }
     }
-    // console.log(`result à ${hourToCheck}=`, result);
-    // console.log(`Array length à ${hourToCheck}=`, result.length);
     return result;
   };
 
@@ -117,6 +113,8 @@ const Planning = () => {
           date: day,
         })
       );
+
+      //PREVOIR IMPORT DEPUIS BDD
 
       setPlanning(planningArray);
 
