@@ -1,12 +1,45 @@
-header {
-  height: 100px;
-  background-color: grey;
+header :not(:h1) {
+  background-color: rgb(89, 221, 224);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
 }
 
-ul {
+h1 {
+  background-color: rgb(89, 221, 224);
+  text-align: center;
+  line-height: 80px;
+  vertical-align: center;
+  font-size: 34px;
+  color: aliceblue;
+}
+
+nav {
+  background-color: rgb(89, 221, 224);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.menu {
   display: flex;
   gap: 30px;
+  line-height: 50px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: calc(100% - 30px);
+}
+
+li {
+  /* border: 1px solid red; */
+  line-height: 40px;
+  width: 100%;
+  text-align: center;
+  background-color: rgb(209, 209, 209);
+}
+
+.pointer {
+  cursor: pointer;
 }
