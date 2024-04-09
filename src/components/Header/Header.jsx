@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 const Header = ({ token }) => {
   const navigate = useNavigate();
 
-  console.log("token -->", token);
+  // console.log("token -->", token);
 
   return (
     <header>
