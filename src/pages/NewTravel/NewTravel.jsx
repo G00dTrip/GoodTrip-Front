@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Select from "react-select";
-import { SelectButton } from "primereact/selectbutton";
+import data from "../../data.json";
+import CustomScroll from "react-customscroll";
+import DropdownTreeSelect from "react-dropdown-tree-select";
 
 import "./newTravel.css";
 
@@ -10,26 +11,40 @@ const NewTravel = () => {
   const [zipCode, setZipCode] = useState("");
   const [date_start, setDate_start] = useState("");
   const [date_end, setDate_end] = useState("");
-  const [type, setType] = useState("");
   const [isShared, setIsShared] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [category, setCategory] = useState([]);
+  const [activity, setActivity] = useState([]);
 
-  const handleClick = () => {
-    <Link to="/" />;
-  };
+  // const onChange = (currentNode, selectedNodes) => {
+  //   console.log("path -->", currentNode.path);
+  // };
+
+  // const assignObjectPaths = (obj, stack) => {
+  //   Object.keys(obj).forEach((k) => {
+  //     const node = obj[k];
+  //     if (typeof node === "object") {
+  //       node.path = stack ? `${stack}.${k}` : k;
+  //       assignObjectPaths(node, node.path);
+  //     }
+  //   });
+  // };
+
+  // assignObjectPaths(data);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      if (name && date_start && date_end && type && isShared) {
+      if (name && date_start && date_end && isShared && category && activity) {
         const { data } = await axios.post("http://127.0.0.1:3000/create", {
           name,
           zipCode,
           date_start,
           date_end,
-          type,
           isShared,
+          category,
+          activity,
         });
       } else {
         setErrorMessage("Veuillez remplir tous les champs");
@@ -41,6 +56,41 @@ const NewTravel = () => {
 
   return (
     <main className="newTravelPage">
+      <br />
+      <br />
+      <br />
+
+      <div className="tree-outer-wrap">
+        <div className="tree-inner-wrap">
+          <CustomScroll>
+            <DropdownTreeSelect
+              // onChange={onChange}
+              keepTreeOnSearch={true}
+              inlineSearchInput={true}
+              clearSearchOnChange={false}
+              keepOpenOnSelect={true}
+              showPartiallySelected={true}
+              readOnly={false}
+              disabled={false}
+              data={data}
+              showDropdown="initial"
+              mode="multiselect"
+            />
+          </CustomScroll>
+        </div>
+      </div>
+
+      <p>
+        <br /> Récap
+      </p>
+      <p>Catégories : {category}</p>
+      <p>Activités : {activity}</p>
+      {/* <p>assignObjectPaths : {assignObjectPaths}</p> */}
+
+      <br />
+      <br />
+      <br />
+
       <form onSubmit={handleSubmit} className="formNewTravel">
         <div>
           <label htmlFor="end">Nom de la ville :</label>
@@ -76,6 +126,8 @@ const NewTravel = () => {
 
         <p>{zipCode}</p>
 
+        <br />
+
         <div>
           <label htmlFor="start">Premier jour du voyage : </label>
           <input
@@ -104,8 +156,10 @@ const NewTravel = () => {
 
         <p>{date_end}</p>
 
+        <br />
+
         <div>
-          <button className="buttonConnecter" onClick={handleClick}>
+          <button className="buttonConnecter" onClick={handleSubmit}>
             Valider le voyage
           </button>
         </div>

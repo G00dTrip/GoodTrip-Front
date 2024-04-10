@@ -1,0 +1,220 @@
+[
+  {
+    "label": "Arts et musées",
+    "className": "category",
+    "expanded": true,
+    "children": [
+      {
+        "label": "Gallerie"
+      },
+      {
+        "label": "Musée"
+      }
+    ]
+  },
+  {
+    "label": "Sports",
+    "className": "category",
+    "expanded": true,
+    "children": [
+      {
+        "label": "Golf"
+      },
+      {
+        "label": "Skate-Park"
+      },
+      {
+        "label": "Randonnée"
+      },
+      {
+        "label": "Escalade"
+      },
+      {
+        "label": "Surf"
+      }
+    ]
+  },
+  {
+    "label": "Restaurants",
+    "className": "category",
+    "expanded": true,
+    "children": [
+      {
+        "label": "Restaurant poisson"
+      },
+      {
+        "label": "Restaurant gastronomique"
+      },
+      {
+        "label": "Restaurant asiatique"
+      },
+      {
+        "label": "Restaurant vegan"
+      },
+      {
+        "label": "Restaurant végétarien"
+      },
+      {
+        "label": "Restaurant bistronomique"
+      },
+      {
+        "label": "Restaurant sans gluten"
+      },
+      {
+        "label": "Fast-food"
+      },
+      {
+        "label": "Pizzéria"
+      },
+      {
+        "label": "Sushi"
+      },
+      {
+        "label": "Crêperie"
+      },
+      {
+        "label": "Brunch"
+      },
+      {
+        "label": "Street-food"
+      },
+      {
+        "label": "Bar à vins"
+      },
+      {
+        "label": "Bar à tapas"
+      },
+      {
+        "label": "Brasserie"
+      }
+    ]
+  },
+  {
+    "label": "Enfants",
+    "className": "category",
+    "expanded": true,
+    "children": [
+      {
+        "label": "Aire de jeux"
+      },
+      {
+        "label": "Accrobranche"
+      },
+      {
+        "label": "Parc d'attraction"
+      },
+      {
+        "label": "Zoo"
+      },
+      {
+        "label": "Aquarium"
+      },
+      {
+        "label": "Ferme pour enfants"
+      },
+      {
+        "label": "Cirque"
+      },
+      {
+        "label": "Centre équestre"
+      },
+      {
+        "label": "Base de loisirs"
+      },
+      {
+        "label": "Plage"
+      }
+    ]
+  },
+  {
+    "label": "Patrimoine",
+    "className": "category",
+    "expanded": true,
+    "children": [
+      {
+        "label": "Eglise ancienne"
+      },
+      {
+        "label": "Marina"
+      },
+      {
+        "label": "Parc nationaux"
+      },
+      {
+        "label": "Site historique"
+      }
+    ]
+  },
+  {
+    "label": "Divertissements",
+    "className": "category",
+    "expanded": true,
+    "children": [
+      {
+        "label": "Cinéma"
+      },
+      {
+        "label": "Théâtre"
+      },
+      {
+        "label": "Zoo"
+      },
+      {
+        "label": "Bowling"
+      },
+      {
+        "label": "Parc aquatique"
+      },
+      {
+        "label": "Parc d'attraction"
+      },
+      {
+        "label": "Café théâtre"
+      },
+      {
+        "label": "Karting"
+      },
+      {
+        "label": "Paintball"
+      },
+      {
+        "label": "Lasergame"
+      },
+      {
+        "label": "Centre équestre"
+      }
+    ]
+  },
+  {
+    "label": "Vie Nocturne",
+    "className": "category",
+    "expanded": true,
+    "children": [
+      {
+        "label": "Discothèque"
+      },
+      {
+        "label": "Bar à cocktails"
+      },
+      {
+        "label": "Pub"
+      }
+    ]
+  },
+  {
+    "label": "Bien-être",
+    "className": "category",
+    "expanded": true,
+    "children": [
+      {
+        "label": "Massage"
+      },
+      {
+        "label": "Thalasso"
+      },
+      {
+        "label": "Institut de beauté"
+      }
+    ]
+  }
+]

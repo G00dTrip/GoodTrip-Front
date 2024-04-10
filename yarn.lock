@@ -673,6 +673,118 @@
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.12.0.tgz#9ffdf9ed133a7464f4ae187eb9e1294413fab235"
   integrity sha512-ZYmr5mS2wd4Dew/JjT0Fqi2NPB/ZhZ2VvPp7SmvPZb4Y1CG/LRcS6tcRo2cYU7zLK5A7cdbhWnnWmUjoI4qapg==
 
+"@syncfusion/ej2-base@~25.1.35":
+  version "25.1.35"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-base/-/ej2-base-25.1.35.tgz#c0323435a77b7d2c1abcd520320dcb87573a269b"
+  integrity sha512-eH/zLft7j5jhbNquVNcKoDmlx+ZU/77mHAJwpG9Ad4+C/+7UcWlIi/RDORJ0QreosZM4gMyCYzxDAZ5QOI3txw==
+  dependencies:
+    "@syncfusion/ej2-icons" "~25.1.35"
+
+"@syncfusion/ej2-buttons@~25.1.35", "@syncfusion/ej2-buttons@~25.1.39":
+  version "25.1.39"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-buttons/-/ej2-buttons-25.1.39.tgz#b7436107a77f6687a3cbce76c97e5141935d7528"
+  integrity sha512-QUAiHhswM3hP0pGjantmc785yntT3JBx0UEZtL3cG9bZLjRQLi2cAGmWDdA1U6cBmsEvf0vzvRS7uhAnfRN0JQ==
+  dependencies:
+    "@syncfusion/ej2-base" "~25.1.35"
+
+"@syncfusion/ej2-data@~25.1.35":
+  version "25.1.35"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-data/-/ej2-data-25.1.35.tgz#f71e532b3c8058421d1c0bc692a28bea299ea06b"
+  integrity sha512-eHWkoQcokKFiLUMpcw2IM1ul9v8HeRgIrUzowyWPpamuZASX8luczDy3VLR5AX0YeiE9aNv3QKsr04t4F1GRcQ==
+  dependencies:
+    "@syncfusion/ej2-base" "~25.1.35"
+
+"@syncfusion/ej2-dropdowns@25.1.39":
+  version "25.1.39"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-dropdowns/-/ej2-dropdowns-25.1.39.tgz#0e3af8e8aa60444445e39aa199a0cf5541522239"
+  integrity sha512-tV6yseJ+Ew2MGhz6Eutq6ZAbJ4MWuVGWUy8xgFsTrL3IBFFYZnF+jkd95s5FpvF1amKz0fuzKohtpfS5177Btg==
+  dependencies:
+    "@syncfusion/ej2-base" "~25.1.35"
+    "@syncfusion/ej2-data" "~25.1.35"
+    "@syncfusion/ej2-inputs" "~25.1.38"
+    "@syncfusion/ej2-lists" "~25.1.39"
+    "@syncfusion/ej2-navigations" "~25.1.39"
+    "@syncfusion/ej2-notifications" "~25.1.35"
+    "@syncfusion/ej2-popups" "~25.1.39"
+
+"@syncfusion/ej2-icons@~25.1.35":
+  version "25.1.35"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-icons/-/ej2-icons-25.1.35.tgz#e24db28f0f9ca52ec5c8f8572bf6c0c8d20d2000"
+  integrity sha512-E8ypbeB9ISTsaj8Q29w3Ysh6HG35GOdTjfaU6JTCaZ9wP30q04B4WfN9lqcd42Q198qhynFAXd3lJyYev68aGw==
+
+"@syncfusion/ej2-inputs@~25.1.38":
+  version "25.1.38"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-inputs/-/ej2-inputs-25.1.38.tgz#7922bcea38cc334405ab4202f357a23d73514026"
+  integrity sha512-WspFi4Lv9CpfmWTZpKnWLQL1fbEDIocZhm2tlkg2BEQGOjscg80HJjbMIEea/p/We8jYt2BqRWXVdI6gI35kvQ==
+  dependencies:
+    "@syncfusion/ej2-base" "~25.1.35"
+    "@syncfusion/ej2-buttons" "~25.1.35"
+    "@syncfusion/ej2-popups" "~25.1.38"
+    "@syncfusion/ej2-splitbuttons" "~25.1.38"
+
+"@syncfusion/ej2-lists@~25.1.39":
+  version "25.1.39"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-lists/-/ej2-lists-25.1.39.tgz#275111029a5be6c2150a9783d44d9224bcce3a05"
+  integrity sha512-bWWsr1pYQDxiupF80yvBPKCtYw1V92DuMpqgtfj90vl5xInpRCHl1mSNDETbNgl//BthRkUo5yQtI2deX9X0Hw==
+  dependencies:
+    "@syncfusion/ej2-base" "~25.1.35"
+    "@syncfusion/ej2-buttons" "~25.1.39"
+    "@syncfusion/ej2-data" "~25.1.35"
+    "@syncfusion/ej2-popups" "~25.1.39"
+
+"@syncfusion/ej2-navigations@~25.1.39":
+  version "25.1.39"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-navigations/-/ej2-navigations-25.1.39.tgz#d3267c34b7955df298dc80e34b940d133ff88daf"
+  integrity sha512-DFMKcO15eb+tzCzS27B92OqEin9mpGJknrl+SWMIolHHyHxyxPpwX5yNLMkE8sqswOSWlFlWzyaQ04vZuIN9Cw==
+  dependencies:
+    "@syncfusion/ej2-base" "~25.1.35"
+    "@syncfusion/ej2-buttons" "~25.1.39"
+    "@syncfusion/ej2-data" "~25.1.35"
+    "@syncfusion/ej2-inputs" "~25.1.38"
+    "@syncfusion/ej2-lists" "~25.1.39"
+    "@syncfusion/ej2-popups" "~25.1.39"
+
+"@syncfusion/ej2-notifications@~25.1.35":
+  version "25.1.35"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-notifications/-/ej2-notifications-25.1.35.tgz#f6dd01cb54fa596b120b87292fce50818c5cfd07"
+  integrity sha512-ioSI36uCSA9hxB8fiUAvI0u7c2eIs1sw3kC0cfL2HbGHHOmhWjm4yoTIl13sKoXU6Sv2A2V3xsFAf97cBTjFvA==
+  dependencies:
+    "@syncfusion/ej2-base" "~25.1.35"
+    "@syncfusion/ej2-buttons" "~25.1.35"
+    "@syncfusion/ej2-popups" "~25.1.35"
+
+"@syncfusion/ej2-popups@~25.1.35", "@syncfusion/ej2-popups@~25.1.38", "@syncfusion/ej2-popups@~25.1.39":
+  version "25.1.39"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-popups/-/ej2-popups-25.1.39.tgz#19134b2f58d400de0a2dbfb181122abc22dbb63a"
+  integrity sha512-4BN3w9E/5uO27En/tXl5MYywTKNlAKYSwCIbQip+pH2rstcF6bZ1Qu01alGqN9KA4aMUEMOlN4fQcZ0EpQFLWQ==
+  dependencies:
+    "@syncfusion/ej2-base" "~25.1.35"
+    "@syncfusion/ej2-buttons" "~25.1.39"
+
+"@syncfusion/ej2-react-base@~25.1.35":
+  version "25.1.35"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-base/-/ej2-react-base-25.1.35.tgz#6b9b5236dc4ce367e3a2e6414927ceaf9c7801cf"
+  integrity sha512-chjK/THRwbRcQTKUL7NyP2VBjtS65uw6e0kieTsQvJ37c3ZZZ3/FpHt9jcqJisStrZ/xp4/y9uSPe6kqBGQBCg==
+  dependencies:
+    "@syncfusion/ej2-base" "~25.1.35"
+
+"@syncfusion/ej2-react-dropdowns@^25.1.39":
+  version "25.1.39"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-dropdowns/-/ej2-react-dropdowns-25.1.39.tgz#d6d6bdd841c9fc4d0e1a806ebbd898099952ada9"
+  integrity sha512-Kfw7g2vO2luFl0ig96j9cwsiZiNn5450j7jBbMAAWwcp010kMZnygR0T8FyN9+vLFU6EiUAsK3fm7fT+xLpRDQ==
+  dependencies:
+    "@syncfusion/ej2-base" "~25.1.35"
+    "@syncfusion/ej2-dropdowns" "25.1.39"
+    "@syncfusion/ej2-react-base" "~25.1.35"
+
+"@syncfusion/ej2-splitbuttons@~25.1.38":
+  version "25.1.38"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-splitbuttons/-/ej2-splitbuttons-25.1.38.tgz#369ff872ab1211dbb28ab921642f2bedbbec7fee"
+  integrity sha512-D5RkU93v2UdbWeny6qkfwiBx38jDe0suHZv1CYES7dnFcQKkKOUjI2TBwIi5d7aFyf4W8reQt7YPmOyNt/8b/Q==
+  dependencies:
+    "@syncfusion/ej2-base" "~25.1.35"
+    "@syncfusion/ej2-popups" "~25.1.38"
+
 "@types/babel__core@^7.20.5":
   version "7.20.5"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.20.5.tgz#3df15f27ba85319caa07ba08d0721889bb39c017"
@@ -827,6 +939,11 @@ array-includes@^3.1.6:
     es-abstract "^1.22.1"
     get-intrinsic "^1.2.1"
     is-string "^1.0.7"
+
+array.partial@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/array.partial/-/array.partial-1.0.5.tgz#f514595aacbf6a99ea20bbcffbcacc10316f0d56"
+  integrity sha512-nkHH1dU6JXrwppCqdUD5M1R85vihgBqhk9miq+3WFwwRayNY1ggpOT6l99PppqYQ1Hcjv2amFfUzhe25eAcYfA==
 
 array.prototype.flat@^1.3.1:
   version "1.3.2"
@@ -2186,6 +2303,11 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
+react-customscroll@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/react-customscroll/-/react-customscroll-5.1.0.tgz#9d90e0d42f90ea1aeb4805172630ec1a960bd1f8"
+  integrity sha512-DOnzeYjZwvLSl6S9zA9Il/5XB1t9ZH9Mm5wE1BOn6HOQZ1MpgNuDc02CrzzgGcZOaH9tb21Y1lgL/WL8r0gMZA==
+
 react-dnd-html5-backend@^16.0.1:
   version "16.0.1"
   resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-16.0.1.tgz#87faef15845d512a23b3c08d29ecfd34871688b6"
@@ -2211,6 +2333,19 @@ react-dom@^18.2.0:
   dependencies:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
+
+react-dropdown-tree-select@^2.8.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/react-dropdown-tree-select/-/react-dropdown-tree-select-2.8.0.tgz#aaafc46a4df046fece13df90ca4224aaeb6a335d"
+  integrity sha512-Nu8Aur/qgNgJgxeW10dkyKHGBzyhyjIZBngmuM6gW1oNBs3UE9IcYUlUz2c6rLBEcAQYtkkp4pvu749mXKE0Dw==
+  dependencies:
+    array.partial "^1.0.5"
+    react-infinite-scroll-component "^4.0.2"
+
+react-infinite-scroll-component@^4.0.2:
+  version "4.5.3"
+  resolved "https://registry.yarnpkg.com/react-infinite-scroll-component/-/react-infinite-scroll-component-4.5.3.tgz#008c2ec358628b490117ffc4aa6ce6982b26f8be"
+  integrity sha512-8O0PIeYZx0xFVS1ChLlLl/1obn64vylzXeheLsm+t0qUibmet7U6kDaKFg6jVRQJwDikWBTcyqEFFsxrbFCO5w==
 
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
