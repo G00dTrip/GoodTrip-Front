@@ -39,8 +39,6 @@ const TimeSlot = ({
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "activity",
     drop: (item) => {
-      // setTimeSlot(<ActivityItem id={item.id} />);
-
       setPlanning((currentPlanning) => {
         const planningCopy = structuredClone(currentPlanning);
 

@@ -1,5 +1,14 @@
 .activity {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 140px;
   /* height: 40px; */
   border: 1px black solid;
+  background-color: blueviolet;
+}
+
+.resizing {
+  justify-self: flex-end;
+  /* align-self: flex-end; */
 }

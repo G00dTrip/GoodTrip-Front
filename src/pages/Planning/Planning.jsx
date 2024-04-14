@@ -85,8 +85,8 @@ const Planning = () => {
     }
   };
 
+  //Cette fonction renvoie l'/les activité(s) qui démarre à cette heure là
   const activyAtThisHour = (planning, indexDay, hourToCheck) => {
-    //Cette fonction renvoie l'/les activité(s) qui démarre à cette heure là
     const result = [];
     const dayToCheck = planning[indexDay];
     for (const element in dayToCheck) {
