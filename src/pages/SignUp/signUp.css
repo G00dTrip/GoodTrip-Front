@@ -1,0 +1,33 @@
+.buttonInscrire {
+  background-color: rgb(89, 221, 224);
+  color: #fff;
+  border-radius: 10px;
+  border: rgb(75, 105, 105) 1px solid;
+  height: 40px;
+  width: 20vw;
+  min-width: 150px;
+  max-width: 250px;
+  margin: auto;
+}
+
+.signupPage {
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.formSignUp {
+  padding-top: 20px;
+  width: 40%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.errorMessage {
+  color: rgb(190, 37, 37);
+  text-align: center;
+}
