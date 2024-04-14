@@ -66,19 +66,19 @@ const ActivityItem = ({ id, duration, indexDay, planning, setPlanning }) => {
   return (
     <div ref={drag} className="activity" style={{ height: height }}>
       <p>ACTIVITE {id}</p>
-      <div className="activity-actions">
-        {planning ? (
+      {planning && (
+        <div className="activity-actions">
           <p onClick={() => removeActivity(indexDay, id)}>Supprimer</p>
-        ) : null}
-        <p
-          onMouseDown={startResizing}
-          // style={{ fontSize: `${resizing ? 38 : 14}px` }}
-          className="resizing"
-        >
-          Modifier durée
-          <FontAwesomeIcon icon="up-down" />
-        </p>
-      </div>
+          <p
+            onMouseDown={startResizing}
+            // style={{ fontSize: `${resizing ? 38 : 14}px` }}
+            className="resizing"
+          >
+            Modifier durée
+            <FontAwesomeIcon icon="up-down" />
+          </p>
+        </div>
+      )}
     </div>
   );
 };
