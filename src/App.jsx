@@ -1,4 +1,6 @@
 import "./App.css";
+import axios from "axios";
+import { useState } from "react";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUpDown } from "@fortawesome/free-solid-svg-icons";
 library.add(faUpDown);
@@ -6,7 +8,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import Home from "./pages/Home/Home";
-import Planning from "./pages/Planning/Planning";
 import Header from "./components/Header/Header";
 import SignUp from "./pages/SignUp/SignUp";
 import Connection from "./pages/SignIn/SignIn";
@@ -19,11 +20,10 @@ function App() {
 
   return (
     <Router>
-      <Header />
+      <Header token={token} setToken={setToken} />
       <Routes>
         <Route path="/" element={<Home token={token} />}></Route>
         <Route path="/newTravel" element={<NewTravel token={token} />}></Route>
-        <Route path="/planning" element={<Planning token={token} />}></Route>
         <Route path="/idea" element={<Idea token={token} />}></Route>
         <Route path="/infos" element={<Infos token={token} />}></Route>
         <Route

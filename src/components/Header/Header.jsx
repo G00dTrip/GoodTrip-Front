@@ -3,7 +3,7 @@ import "./header.css";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
-const Header = ({ token }) => {
+const Header = ({ token, setToken }) => {
   const navigate = useNavigate();
 
   // console.log("token -->", token);
@@ -44,6 +44,7 @@ const Header = ({ token }) => {
                 class="pointer"
                 onClick={() => {
                   Cookies.remove("userToken");
+                  setToken("");
                   navigate("/");
                 }}
               >

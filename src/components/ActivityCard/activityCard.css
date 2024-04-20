@@ -1,0 +1,38 @@
+.activity-card {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.activity-img {
+  height: 100px;
+  width: 100px;
+  border: 1px;
+  border-radius: 50%;
+  background-color: blueviolet;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.activity-info {
+  display: flex;
+  justify-content: space-between;
+  /* border: 1px red solid; */
+  flex: 1;
+  margin-left: 10px;
+}
+
+.info-left {
+  display: flex;
+  flex-direction: column;
+  line-height: 22px;
+}
+
+.info-right {
+  display: flex;
+}

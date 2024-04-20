@@ -1,0 +1,7 @@
+.activities-choice-main {
+  display: flex;
+}
+
+.activities-choice-main button {
+  height: 50px;
+}

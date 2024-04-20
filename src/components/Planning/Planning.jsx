@@ -1,8 +1,8 @@
 import "./planning.css";
 import { useState, useEffect } from "react";
 import { eachDayOfInterval, getDay, getDate, getMonth } from "date-fns";
-import ActivityItem from "../../components/ActivityItem/ActivityItem";
-import TimeSlot from "../../components/TimeSlot/TimeSlot";
+import ActivityItem from "../ActivityItem/ActivityItem";
+import TimeSlot from "../TimeSlot/TimeSlot";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import axios from "axios";
