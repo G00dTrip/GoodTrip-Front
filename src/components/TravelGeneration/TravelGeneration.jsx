@@ -20,6 +20,7 @@ const TravelGeneration = ({
   activities,
   setActivities,
   setStep,
+  setTravel,
 }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -57,6 +58,7 @@ const TravelGeneration = ({
         console.log("data", data);
         setActivities(data.activities);
         setStep(2);
+        setTravel(data.travel);
       } else {
         setErrorMessage("Veuillez remplir tous les champs");
       }

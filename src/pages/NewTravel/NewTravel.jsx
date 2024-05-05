@@ -14,6 +14,7 @@ const NewTravel = ({ token }) => {
   const [isShared, setIsShared] = useState(false);
   const [categories, setCategories] = useState([]);
   const [activities, setActivities] = useState([]);
+  const [travel, setTravel] = useState(null);
 
   return (
     (step === 1 && (
@@ -32,9 +33,12 @@ const NewTravel = ({ token }) => {
         activities={activities}
         setActivities={setActivities}
         setStep={setStep}
+        setTravel={setTravel}
       />
     )) ||
-    (step === 2 && <ActivitiesChoice activities={activities} />)
+    (step === 2 && (
+      <ActivitiesChoice activities={activities} token={token} travel={travel} />
+    ))
   );
 };
 
