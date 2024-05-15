@@ -2,11 +2,33 @@ import { useState, useEffect, useRef, Children } from "react";
 import "./activityItem.css";
 import { useDrag } from "react-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 
-const ActivityItem = ({ id, duration, indexDay, planning, setPlanning }) => {
+const ActivityItem = ({
+  id,
+  duration,
+  indexDay,
+  planning,
+  setPlanning,
+  token,
+}) => {
   const heightRef = useRef(`${duration * 50}px`);
   const [height, setHeight] = useState(`${duration * 50}px`);
+  const [title, setTitle] = useState("");
   let startY = 0;
+
+  //Chargement des données
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log("FETCHDATA ACTIVITY RUNNING");
+      const { data } = await axios.get(`http://127.0.0.1:3000/activity/${id}`, {
+        headers: { authorization: `Bearer ${token}` },
+      });
+      console.log("data=", data);
+      setTitle(data.title);
+    };
+    fetchData();
+  }, []);
 
   // Useeffect pour mettre à jour l'activityItem dés que le planning est modifié
   useEffect(() => {
@@ -50,7 +72,7 @@ const ActivityItem = ({ id, duration, indexDay, planning, setPlanning }) => {
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "activity",
-    item: { id: id },
+    item: { title: title },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
@@ -65,7 +87,7 @@ const ActivityItem = ({ id, duration, indexDay, planning, setPlanning }) => {
 
   return (
     <div ref={drag} className="activity" style={{ height: height }}>
-      <p>ACTIVITE {id}</p>
+      <p>{title}</p>
       {planning && (
         <div className="activity-actions">
           <p onClick={() => removeActivity(indexDay, id)}>Supprimer</p>

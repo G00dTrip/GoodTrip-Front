@@ -15,6 +15,7 @@ const ActivitiesChoice = ({ activities, token, travel }) => {
       if (selectedActivities.length > 0) {
         const selectedActivitiesPromises = selectedActivities.map(
           async (activity) => {
+            console.log("activity.price=", activity.price);
             const { data } = await axios.post(
               "http://127.0.0.1:3000/select",
               {
@@ -30,9 +31,10 @@ const ActivitiesChoice = ({ activities, token, travel }) => {
               },
               { headers: { authorization: `Bearer ${token}` } }
             );
+            console.log(activity.title, "envoyées au back");
           }
         );
-        // navigate(`/travel/update/${travel._id}`);
+        navigate(`/travel/update/${travel._id}`);
       } else {
         setErrorMessage("Veuillez remplir tous les champs");
       }

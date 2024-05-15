@@ -6,8 +6,12 @@ import TimeSlot from "../TimeSlot/TimeSlot";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
-const Planning = () => {
+const Planning = ({ token }) => {
+  const { travelId } = useParams();
+  console.log("travelID=", travelId);
+
   const [tripStart, setTripStart] = useState(null);
   const [tripEnd, setTripEnd] = useState(null);
   const [days, setDays] = useState(null);
@@ -16,6 +20,7 @@ const Planning = () => {
   const [hours, setHours] = useState([
     7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
   ]);
+  const [activities, setActivities] = useState([]);
 
   //Fonction pour écrire le jour en lettre
   const whatTheDay = (numberOfTheDay) => {
@@ -100,6 +105,21 @@ const Planning = () => {
   };
 
   useEffect(() => {
+    const fetchData = async () => {
+      console.log("FETCHDATA RUNNING");
+      const { data } = await axios.get(
+        `http://127.0.0.1:3000/travel/${travelId}`,
+        {
+          headers: { authorization: `Bearer ${token}` },
+        }
+      );
+      console.log("data=", data);
+      setTripStart(data.date_start);
+      setTripEnd(data.date_end);
+      setActivities(data.activities);
+    };
+    fetchData();
+
     if (tripStart && tripEnd) {
       //FAIRE VERIFICATION DE LA COHERENCE DES DATES
 
@@ -126,34 +146,8 @@ const Planning = () => {
     <DndProvider backend={HTML5Backend}>
       <div>
         <p>page planning</p>
-        <label htmlFor="start">Start date:</label>
-        <input
-          type="date"
-          id="start"
-          name="trip-start"
-          // value={tripStart}
-          // min="2018-01-01"
-          // max="2018-12-31"
-          onChange={(event) => {
-            const startDate = new Date(event.target.value);
-            setTripStart(startDate);
-          }}
-        />
-        <label htmlFor="end">End date:</label>
-        <input
-          type="date"
-          id="end"
-          name="trip-end"
-          // value={tripEnd}
-          // min="2018-01-01"
-          // max="2018-12-31"
-          onChange={(event) => {
-            const endDate = new Date(event.target.value);
-            setTripEnd(endDate);
-          }}
-        />
         {isLoading ? (
-          <p>Choisissez vos dates</p>
+          <p>Chargement en cours</p>
         ) : (
           <div className="planning">
             <div className="hours">
@@ -208,10 +202,9 @@ const Planning = () => {
           </div>
         )}
         <div className="activities">
-          <ActivityItem id="1" />
-          <ActivityItem id="2" />
-          <ActivityItem id="3" />
-          <ActivityItem id="4" />
+          {activities.map((activity) => {
+            return <ActivityItem id={activity.activity} token={token} />;
+          })}
         </div>
       </div>
     </DndProvider>
