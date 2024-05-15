@@ -13,24 +13,13 @@ const ActivitiesChoice = ({ activities, token, travel }) => {
     console.log("ACTIVITIES", selectedActivities);
     try {
       if (selectedActivities.length > 0) {
-        const selectedActivitiesPromises = selectedActivities.map(
-          async (activity) => {
-            const { data } = await axios.post(
-              "http://127.0.0.1:3000/select",
-              {
-                title: activity.title,
-                category: activity.category,
-                city: activity.city,
-                price: activity.price,
-                website: activity.website,
-                opening_hours: activity.opening_hours,
-                rate: activity.rate,
-                google_id: activity.google_id,
-                travel: travel._id,
-              },
-              { headers: { authorization: `Bearer ${token}` } }
-            );
-          }
+        const { data } = await axios.post(
+          "http://127.0.0.1:3000/select",
+          {
+            tab: selectedActivities,
+            travel: travel._id,
+          },
+          { headers: { authorization: `Bearer ${token}` } }
         );
         // navigate(`/travel/update/${travel._id}`);
       } else {

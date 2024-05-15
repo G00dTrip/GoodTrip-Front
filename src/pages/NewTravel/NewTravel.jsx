@@ -34,6 +34,8 @@ const NewTravel = ({ token }) => {
         setActivities={setActivities}
         setStep={setStep}
         setTravel={setTravel}
+        name={name}
+        setName={setName}
       />
     )) ||
     (step === 2 && (
