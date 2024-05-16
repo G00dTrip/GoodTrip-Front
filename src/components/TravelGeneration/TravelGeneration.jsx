@@ -21,6 +21,8 @@ const TravelGeneration = ({
   setActivities,
   setStep,
   setTravel,
+  name,
+  setName,
 }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -103,6 +105,21 @@ const TravelGeneration = ({
       <br />
 
       <form onSubmit={handleSubmit} className="formNewTravel">
+        <div>
+          <label htmlFor="end">Nom du voyage:</label>
+          <input
+            type="name"
+            name="name"
+            id="name"
+            placeholder="Voyage entre amis"
+            value={name}
+            onChange={(event) => {
+              setErrorMessage("");
+              setName(event.target.value);
+            }}
+          />
+        </div>
+
         <div>
           <label htmlFor="end">Nom de la ville :</label>
           <input
