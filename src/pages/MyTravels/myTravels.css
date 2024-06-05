@@ -1,0 +1,25 @@
+h2 {
+  color: #5adddf;
+  font-size: large;
+  font-weight: 600;
+  padding: 20px;
+}
+.travel {
+  width: 400px;
+  border: 1px solid grey;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+.myTravelsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  padding: 50px;
+}
+.flexSpace {
+  display: flex;
+  justify-content: space-between;
+}

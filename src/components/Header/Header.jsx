@@ -24,7 +24,7 @@ const Header = ({ token, setToken }) => {
             </Link>
           </li>
           <li>
-            <Link className="link" to="Planning">
+            <Link className="link" to="myTravels">
               Mes voyages
             </Link>
           </li>
@@ -40,8 +40,8 @@ const Header = ({ token, setToken }) => {
           </li>
           <li>
             {token ? (
-              <li
-                class="pointer"
+              <div
+                className="pointer"
                 onClick={() => {
                   Cookies.remove("userToken");
                   setToken("");
@@ -49,7 +49,7 @@ const Header = ({ token, setToken }) => {
                 }}
               >
                 Se déconnecter
-              </li>
+              </div>
             ) : (
               <Link className="link" to="SignIn">
                 Connexion / Inscription
