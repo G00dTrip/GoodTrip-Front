@@ -6,11 +6,11 @@ import axios from "axios";
 
 const ActivityItem = ({
   id,
-  duration,
-  indexDay,
-  planning,
-  setPlanning,
   token,
+  isScheduled,
+  duration,
+  activities,
+  setActivities,
 }) => {
   const heightRef = useRef(`${duration * 50}px`);
   const [height, setHeight] = useState(`${duration * 50}px`);
@@ -20,11 +20,9 @@ const ActivityItem = ({
   //Chargement des données
   useEffect(() => {
     const fetchData = async () => {
-      console.log("FETCHDATA ACTIVITY RUNNING");
       const { data } = await axios.get(`http://127.0.0.1:3000/activity/${id}`, {
         headers: { authorization: `Bearer ${token}` },
       });
-      console.log("data=", data);
       setTitle(data.title);
     };
     fetchData();
@@ -33,10 +31,11 @@ const ActivityItem = ({
   // Useeffect pour mettre à jour l'activityItem dés que le planning est modifié
   useEffect(() => {
     setHeight(`${duration * 50}px`);
-  }, [planning]);
+  }, [activities]);
 
   const startResizing = (e) => {
     e.preventDefault();
+    console.log(("activities=", activities));
     startY = e.pageY;
     console.log("startY=", e.pageY);
     document.addEventListener("mousemove", resizeActivity);
@@ -52,7 +51,6 @@ const ActivityItem = ({
 
     setHeight(newHeight);
     startY = newY;
-    console.log("planning=", planning);
   };
 
   const endResizing = (e) => {
@@ -61,41 +59,47 @@ const ActivityItem = ({
     document.removeEventListener("mousemove", resizeActivity);
     document.removeEventListener("mouseup", endResizing);
 
-    // //On modifie duration dans le planning au MouseUp
-    setPlanning((currentPlanning) => {
-      const planningCopy = structuredClone(currentPlanning);
-      planningCopy[indexDay][`activity ${id}`].duration =
-        Math.floor(parseInt(heightRef.current) / 50) + 1;
-      return planningCopy;
+    //On met à jour activities avec la nouvelle duration de l'activity en question
+    setActivities((currentActivities) => {
+      const activitiesCopy = structuredClone(currentActivities);
+      activitiesCopy.map((activity, index) => {
+        if (activity.activity === id) {
+          activity.schedule_duration =
+            Math.floor(parseInt(heightRef.current) / 50) + 1;
+        }
+      });
+      return activitiesCopy;
     });
   };
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "activity",
-    item: { title: title },
+    item: { id: id, title: title },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
   }));
 
   //Fonction pour supprimer l'activity
-  const removeActivity = (indexDay, id) => {
-    const planningCopy = structuredClone(planning);
-    delete planningCopy[indexDay][`activity ${id}`];
-    setPlanning(planningCopy);
+  const removeActivity = (id) => {
+    const activitiesCopy = [...activities];
+    activitiesCopy.map((activity, index) => {
+      if (activity.activity === id) {
+        activity.status = "selected";
+        activity.schedule_day = "";
+        activity.schedule_duration = 0;
+      }
+    });
+    setActivities(activitiesCopy);
   };
 
   return (
     <div ref={drag} className="activity" style={{ height: height }}>
       <p>{title}</p>
-      {planning && (
+      {isScheduled && (
         <div className="activity-actions">
-          <p onClick={() => removeActivity(indexDay, id)}>Supprimer</p>
-          <p
-            onMouseDown={startResizing}
-            // style={{ fontSize: `${resizing ? 38 : 14}px` }}
-            className="resizing"
-          >
+          <p onClick={() => removeActivity(id)}>Supprimer</p>
+          <p onMouseDown={startResizing} className="resizing">
             Modifier durée
             <FontAwesomeIcon icon="up-down" />
           </p>

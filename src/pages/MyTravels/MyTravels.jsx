@@ -64,7 +64,7 @@ const MyTravels = ({ token, setToken }) => {
                 <p>Statut : {travel.status}</p>
               </div>
               <div className="flexSpace">
-                <Link>Modifier</Link>
+                <Link to={`/travel/update/${travel._id}`}>Modifier</Link>
                 <button
                   onClick={() => {
                     deleteTravel(travel._id);

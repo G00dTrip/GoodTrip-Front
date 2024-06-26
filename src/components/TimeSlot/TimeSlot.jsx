@@ -2,81 +2,67 @@ import "./timeSlot.css";
 import { useState, useEffect, useRef } from "react";
 import ActivityItem from "../ActivityItem/ActivityItem";
 import { useDrop } from "react-dnd";
+import { addHours, isSameHour } from "date-fns";
+
+import axios from "axios";
 
 const TimeSlot = ({
-  indexDay,
+  day,
   startHour,
   endHour,
-  planning,
-  setPlanning,
   activities,
+  setActivities,
+  travelId,
+  token,
 }) => {
-  const [timeSlot, setTimeSlot] = useState([]);
+  const [timeSlot, setTimeSlot] = useState();
 
   useEffect(() => {
-    if (activities) {
-      const activitiesArray = [];
-      activities.map((activity, index) => {
-        activitiesArray.push(
+    setTimeSlot(null);
+    activities.map((activity) => {
+      if (isSameHour(activity.schedule_day, addHours(day, startHour))) {
+        setTimeSlot(
           <ActivityItem
-            indexDay={indexDay}
-            planning={planning}
-            setPlanning={setPlanning}
-            id={activity.id}
-            startHourActivity={activity.startHourActivity}
-            endHourActivity={activity.endHourActivity}
-            duration={activity.duration}
-            key={index}
+            id={activity.activity}
+            token={token}
+            isScheduled="true"
+            duration={activity.schedule_duration}
+            activities={activities}
+            setActivities={setActivities}
           />
         );
-      });
-      setTimeSlot(activitiesArray);
-    } else {
-      setTimeSlot([]);
-    }
-  }, [planning]);
+      }
+    });
+  }, [activities]);
 
+  //Fonction pour gérer le drag'n'drop
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "activity",
     drop: (item) => {
-      setPlanning((currentPlanning) => {
-        const planningCopy = structuredClone(currentPlanning);
+      //Fonction réalisée lors du drag'n'drop
+      console.log("id activité=", item.id);
 
-        if (!planningCopy[indexDay][`activity ${item.id}`]) {
-          // If this activity doesn't exist we add it donc the planning array
-          planningCopy[indexDay][`activity ${item.id}`] = {
-            id: item.id,
-            startHourActivity: startHour,
-            endHourActivity: endHour,
-            duration: endHour - startHour,
-          };
-        } else {
-          //If already exist we modifiy start,end and duration
-          if (
-            startHour <
-            planningCopy[indexDay][`activity ${item.id}`].startHourActivity
-          ) {
-            planningCopy[indexDay][`activity ${item.id}`].startHourActivity =
-              startHour;
-            planningCopy[indexDay][`activity ${item.id}`].duration =
-              planningCopy[indexDay][`activity ${item.id}`].endHourActivity -
-              startHour;
-          } else if (
-            endHour >
-            planningCopy[indexDay][`activity ${item.id}`].endHourActivity
-          ) {
-            planningCopy[indexDay][`activity ${item.id}`].endHourActivity =
-              endHour;
-            planningCopy[indexDay][`activity ${item.id}`].duration =
-              endHour -
-              planningCopy[indexDay][`activity ${item.id}`].startHourActivity;
-          }
-          //Modification of duration
+      const activitiesCopy = [...activities];
+
+      activitiesCopy.map((activity, index) => {
+        if (activity.activity === item.id) {
+          activity.status = "scheduled";
+          activity.schedule_day = addHours(day, startHour);
+          activity.schedule_duration = endHour - startHour;
         }
-
-        console.log("planningCopy=", planningCopy);
-        return planningCopy;
       });
+
+      setActivities(activitiesCopy);
+
+      setTimeSlot(
+        <ActivityItem
+          id={item.id}
+          token={token}
+          isScheduled="true"
+          activities={activities}
+          setActivities={setActivities}
+        />
+      );
     },
   }));
 

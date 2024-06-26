@@ -10,19 +10,17 @@ import { useParams } from "react-router-dom";
 
 const Planning = ({ token }) => {
   const { travelId } = useParams();
-  console.log("travelID=", travelId);
 
   const [tripStart, setTripStart] = useState(null);
   const [tripEnd, setTripEnd] = useState(null);
   const [days, setDays] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [planning, setPlanning] = useState([]);
   const [hours, setHours] = useState([
     7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
   ]);
   const [activities, setActivities] = useState([]);
 
-  //Fonction pour écrire le jour en lettre
+  //Fonction pour écrire le jour en lettre à partir de son numéro
   const whatTheDay = (numberOfTheDay) => {
     switch (numberOfTheDay) {
       case 0:
@@ -48,7 +46,7 @@ const Planning = ({ token }) => {
         break;
     }
   };
-  //Fonction pour écrire le mois en lettre
+  //Fonction pour écrire le mois en lettre à partir de son numéro
   const whatTheMonth = (numberOfTheMonth) => {
     switch (numberOfTheMonth) {
       case 0:
@@ -90,62 +88,52 @@ const Planning = ({ token }) => {
     }
   };
 
-  //Cette fonction renvoie l'/les activité(s) qui démarre à cette heure là
-  const activyAtThisHour = (planning, indexDay, hourToCheck) => {
-    const result = [];
-    const dayToCheck = planning[indexDay];
-    for (const element in dayToCheck) {
-      if (element !== "date") {
-        if (dayToCheck[element].startHourActivity === hourToCheck) {
-          result.push(dayToCheck[element]);
-        }
+  const submitPlanning = () => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.post(
+          "http://127.0.0.1:3000/schedule",
+          { activities: activities, travelId: travelId },
+          { headers: { authorization: `Bearer ${token}` } }
+        );
+      } catch (error) {
+        console.log("error ->", error);
       }
-    }
-    return result;
+    };
+    fetchData();
   };
 
+  //On récupère toutes les activities du travel grâce à son ID récupéré en params
   useEffect(() => {
     const fetchData = async () => {
-      console.log("FETCHDATA RUNNING");
       const { data } = await axios.get(
         `http://127.0.0.1:3000/travel/${travelId}`,
         {
           headers: { authorization: `Bearer ${token}` },
         }
       );
-      console.log("data=", data);
       setTripStart(data.date_start);
       setTripEnd(data.date_end);
       setActivities(data.activities);
+
+      if (tripStart && tripEnd) {
+        //FAIRE VERIFICATION DE LA COHERENCE DES DATES
+
+        const daysArray = eachDayOfInterval({ start: tripStart, end: tripEnd });
+        //On stocke tous les jours compris entre tripStart et tripEnd dans le state Days
+        setDays(daysArray);
+
+        setIsLoading(false);
+      }
     };
     fetchData();
-
-    if (tripStart && tripEnd) {
-      //FAIRE VERIFICATION DE LA COHERENCE DES DATES
-
-      const daysArray = eachDayOfInterval({ start: tripStart, end: tripEnd });
-      setDays(daysArray);
-
-      const planningArray = [];
-
-      daysArray.map((day) =>
-        planningArray.push({
-          date: day,
-        })
-      );
-
-      //PREVOIR IMPORT DEPUIS BDD
-
-      setPlanning(planningArray);
-
-      setIsLoading(false);
-    }
   }, [tripStart, tripEnd]);
 
   return (
     <DndProvider backend={HTML5Backend}>
       <div>
         <p>page planning</p>
+        <button onClick={submitPlanning}>VALIDER</button>
         {isLoading ? (
           <p>Chargement en cours</p>
         ) : (
@@ -154,6 +142,8 @@ const Planning = ({ token }) => {
               <div className="dayName">
                 <p>Horaires</p>
               </div>
+              {/* Pour toutes les heures dans le tableau hours on crée un timeslot avec le nom de l'heure */}
+              {/* Cela va créer la colonne des heures à gauche du planning */}
               {hours.map((hour, index) => {
                 return (
                   <div className="timeSlot" key={index}>
@@ -162,10 +152,14 @@ const Planning = ({ token }) => {
                 );
               })}
             </div>
-
+            {/* Pour tous les jours du séjour stocké dans days :
+            - On écrit la date en lettre dans la première ligne du planning
+            - On crée un timeslot pour chaque hours => Soit vide si pas d'activités à cette heure, soit avec l'activité déjà schedule à cette heure-là
+             */}
             {days.map((day, indexDay) => {
               return (
                 <div className="day" key={indexDay}>
+                  {/* On écrit la date en lettre dans la première ligne du planning */}
                   <div className="dayName">
                     <p>
                       {whatTheDay(getDay(day))} {getDate(day)}{" "}
@@ -173,26 +167,18 @@ const Planning = ({ token }) => {
                     </p>
                   </div>
 
+                  {/* On crée un timeslot pour chaque hours => Soit vide si pas d'activités à cette heure, soit avec l'activité déjà schedule à cette heure-là */}
                   {hours.map((hour, indexHour) => {
-                    return activyAtThisHour(planning, indexDay, hour).length >
-                      0 ? (
+                    return (
                       <TimeSlot
-                        indexDay={indexDay}
+                        day={day}
                         startHour={hour}
                         endHour={hour + 1}
-                        planning={planning}
-                        setPlanning={setPlanning}
                         key={indexHour}
-                        activities={activyAtThisHour(planning, indexDay, hour)}
-                      />
-                    ) : (
-                      <TimeSlot
-                        indexDay={indexDay}
-                        startHour={hour}
-                        endHour={hour + 1}
-                        planning={planning}
-                        setPlanning={setPlanning}
-                        key={indexHour}
+                        travelId={travelId}
+                        activities={activities}
+                        setActivities={setActivities}
+                        token={token}
                       />
                     );
                   })}
@@ -202,8 +188,10 @@ const Planning = ({ token }) => {
           </div>
         )}
         <div className="activities">
-          {activities.map((activity) => {
-            return <ActivityItem id={activity.activity} token={token} />;
+          {activities.map((activity, index) => {
+            return (
+              <ActivityItem id={activity.activity} token={token} key={index} />
+            );
           })}
         </div>
       </div>
