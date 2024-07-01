@@ -1,12 +1,27 @@
 import "./activitiesChoice.css";
 import ActivityCard from "../ActivityCard/ActivityCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const ActivitiesChoice = ({ activities, token, travel }) => {
   const navigate = useNavigate();
   const [selectedActivities, setSelectedActivities] = useState([]);
+  const [sortedActivities, setSortedActivities] = useState([]);
+
+  // Fonction pour trier les activités pour mettre en avant celles qui ont un site internet
+  useEffect(() => {
+    const newSortedActivities = activities.sort((a, b) => {
+      if (a.websiteUri && !b.websiteUri) {
+        return -1; // a avant b
+      } else if (!a.websiteUri && b.websiteUri) {
+        return 1; // b avant a
+      } else {
+        return 0; // pas de changement
+      }
+    });
+    setSortedActivities(newSortedActivities);
+  }, []);
 
   //Fonction à faire pour envoyer les activities sélectionnées en BDD
   const submit = async () => {
@@ -35,7 +50,7 @@ const ActivitiesChoice = ({ activities, token, travel }) => {
       <p>ACTIVITIES CHOICE</p>
       <div className="activities-choice-main">
         <div className="activies-list">
-          {activities.map((activity) => (
+          {sortedActivities.map((activity) => (
             <ActivityCard
               activity={activity}
               selectedActivities={selectedActivities}

@@ -10,7 +10,7 @@ const Header = ({ token, setToken }) => {
 
   return (
     <header>
-      <h1>GOODTRIP</h1>
+      <h1></h1>
       <nav>
         <ul className="menu">
           <li>
