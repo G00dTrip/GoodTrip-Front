@@ -3,7 +3,7 @@ import data from "../../data.json";
 import CustomScroll from "react-customscroll";
 import DropdownTreeSelect from "react-dropdown-tree-select";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const TravelGeneration = ({
   categories,
@@ -25,6 +25,18 @@ const TravelGeneration = ({
   setName,
 }) => {
   const [errorMessage, setErrorMessage] = useState("");
+  const [locationList, setLocationList] = useState([]);
+  const [locationListIsDisplayed, setLocationListisDisplayed] = useState(false);
+
+  const searchLocation = async (event) => {
+    setPlace(event.target.value);
+
+    const { data } = await axios.get(
+      `https://geo.api.gouv.fr/communes?nom=${event.target.value}`
+    );
+    setLocationList(data);
+    setLocationListisDisplayed(true);
+  };
 
   const onChange = (currentNode, selectedNodes) => {
     //CuurentNode is an object of the last selected item
@@ -45,12 +57,12 @@ const TravelGeneration = ({
     event.preventDefault();
 
     try {
-      if (place && date_start && date_end && categories) {
+      if (place && zipCode && date_start && date_end && categories) {
         const { data } = await axios.post(
           "http://127.0.0.1:3000/create",
           {
             place,
-            // zipCode,
+            zipCode,
             date_start,
             date_end,
             categories,
@@ -114,7 +126,6 @@ const TravelGeneration = ({
             placeholder="Voyage entre amis"
             value={name}
             onChange={(event) => {
-              setErrorMessage("");
               setName(event.target.value);
             }}
           />
@@ -128,16 +139,32 @@ const TravelGeneration = ({
             id="place"
             placeholder="Paris"
             value={place}
-            onChange={(event) => {
-              setErrorMessage("");
-              setPlace(event.target.value);
-            }}
+            onChange={searchLocation}
           />
         </div>
+        {locationListIsDisplayed && (
+          <ul>
+            {place.length >= 3 &&
+              locationList &&
+              locationList.map((location, index) => {
+                return (
+                  <li
+                    className="location-item"
+                    onClick={() => {
+                      setPlace(location.nom);
+                      setZipCode(location.codeDepartement);
+                      setLocationListisDisplayed(false);
+                    }}
+                    key={index}
+                  >
+                    {location.nom}({location.codeDepartement})
+                  </li>
+                );
+              })}
+          </ul>
+        )}
 
-        <p>{place}</p>
-
-        <div>
+        {/* <div>
           <label htmlFor="end">Code postal :</label>
           <input
             type="zipCode"
@@ -150,9 +177,7 @@ const TravelGeneration = ({
               setZipCode(event.target.value);
             }}
           />
-        </div>
-
-        <p>{zipCode}</p>
+        </div> */}
 
         <br />
 

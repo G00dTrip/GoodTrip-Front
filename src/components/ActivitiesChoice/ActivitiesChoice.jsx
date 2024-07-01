@@ -16,8 +16,8 @@ const ActivitiesChoice = ({ activities, token, travel }) => {
         const { data } = await axios.post(
           "http://127.0.0.1:3000/select",
           {
-            tab: selectedActivities,
-            travel: travel._id,
+            selectedActivities,
+            travel,
           },
           { headers: { authorization: `Bearer ${token}` } }
         );

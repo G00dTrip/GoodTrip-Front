@@ -14,3 +14,20 @@
   height: 50px;
   border: 1px black solid;
 }
+
+h2 {
+  text-align: center;
+  background-color: white;
+  color: black;
+}
+
+.main-planning {
+  display: flex;
+  justify-content: space-around;
+}
+
+.activities {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

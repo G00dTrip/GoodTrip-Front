@@ -12,7 +12,10 @@ const ActivityItem = ({
   activities,
   setActivities,
 }) => {
+  console.log("id=", id);
+  console.log("duration=", duration);
   const heightRef = useRef(`${duration * 50}px`);
+  console.log("heightRef=", heightRef);
   const [height, setHeight] = useState(`${duration * 50}px`);
   const [title, setTitle] = useState("");
   let startY = 0;
@@ -47,6 +50,7 @@ const ActivityItem = ({
     const newY = e.pageY;
     const diffY = newY - startY;
     const newHeight = parseInt(heightRef.current) + diffY + "px";
+    console.log("new height=", newHeight);
     heightRef.current = newHeight;
 
     setHeight(newHeight);

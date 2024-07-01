@@ -4,8 +4,6 @@ import ActivityItem from "../ActivityItem/ActivityItem";
 import { useDrop } from "react-dnd";
 import { addHours, isSameHour } from "date-fns";
 
-import axios from "axios";
-
 const TimeSlot = ({
   day,
   startHour,
@@ -40,8 +38,6 @@ const TimeSlot = ({
     accept: "activity",
     drop: (item) => {
       //Fonction réalisée lors du drag'n'drop
-      console.log("id activité=", item.id);
-
       const activitiesCopy = [...activities];
 
       activitiesCopy.map((activity, index) => {
@@ -49,6 +45,7 @@ const TimeSlot = ({
           activity.status = "scheduled";
           activity.schedule_day = addHours(day, startHour);
           activity.schedule_duration = endHour - startHour;
+          console.log("activities=", activities);
         }
       });
 
@@ -58,6 +55,7 @@ const TimeSlot = ({
         <ActivityItem
           id={item.id}
           token={token}
+          duration={1} //On donne de base une duration de 1h lors du drag'n'drop
           isScheduled="true"
           activities={activities}
           setActivities={setActivities}
@@ -68,7 +66,7 @@ const TimeSlot = ({
 
   return (
     <div ref={drop} className="timeSlot">
-      {timeSlot ? timeSlot : <p>VIDE</p>}
+      {timeSlot && timeSlot}
     </div>
   );
 };

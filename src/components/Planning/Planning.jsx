@@ -93,7 +93,7 @@ const Planning = ({ token }) => {
       try {
         const { data } = await axios.post(
           "http://127.0.0.1:3000/schedule",
-          { activities: activities, travelId: travelId },
+          { activities, travelId },
           { headers: { authorization: `Bearer ${token}` } }
         );
       } catch (error) {
@@ -132,68 +132,75 @@ const Planning = ({ token }) => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div>
-        <p>page planning</p>
+        <h2>Mon planning de vacances</h2>
         <button onClick={submitPlanning}>VALIDER</button>
         {isLoading ? (
           <p>Chargement en cours</p>
         ) : (
-          <div className="planning">
-            <div className="hours">
-              <div className="dayName">
-                <p>Horaires</p>
+          <div className="main-planning">
+            <div className="planning">
+              <div className="hours">
+                <div className="dayName">
+                  <p>Horaires</p>
+                </div>
+                {/* Pour toutes les heures dans le tableau hours on crée un timeslot avec le nom de l'heure */}
+                {/* Cela va créer la colonne des heures à gauche du planning */}
+                {hours.map((hour, index) => {
+                  return (
+                    <div className="timeSlot" key={index}>
+                      {hour}h
+                    </div>
+                  );
+                })}
               </div>
-              {/* Pour toutes les heures dans le tableau hours on crée un timeslot avec le nom de l'heure */}
-              {/* Cela va créer la colonne des heures à gauche du planning */}
-              {hours.map((hour, index) => {
+              {/* Pour tous les jours du séjour stocké dans days :
+          - On écrit la date en lettre dans la première ligne du planning
+          - On crée un timeslot pour chaque hours => Soit vide si pas d'activités à cette heure, soit avec l'activité déjà schedule à cette heure-là
+           */}
+              {days.map((day, indexDay) => {
                 return (
-                  <div className="timeSlot" key={index}>
-                    {hour}h
+                  <div className="day" key={indexDay}>
+                    {/* On écrit la date en lettre dans la première ligne du planning */}
+                    <div className="dayName">
+                      <p>
+                        {whatTheDay(getDay(day))} {getDate(day)}{" "}
+                        {whatTheMonth(getMonth(day))}
+                      </p>
+                    </div>
+
+                    {/* On crée un timeslot pour chaque hours => Soit vide si pas d'activités à cette heure, soit avec l'activité déjà schedule à cette heure-là */}
+                    {hours.map((hour, indexHour) => {
+                      return (
+                        <TimeSlot
+                          day={day}
+                          startHour={hour}
+                          endHour={hour + 1}
+                          key={indexHour}
+                          travelId={travelId}
+                          activities={activities}
+                          setActivities={setActivities}
+                          token={token}
+                        />
+                      );
+                    })}
                   </div>
                 );
               })}
             </div>
-            {/* Pour tous les jours du séjour stocké dans days :
-            - On écrit la date en lettre dans la première ligne du planning
-            - On crée un timeslot pour chaque hours => Soit vide si pas d'activités à cette heure, soit avec l'activité déjà schedule à cette heure-là
-             */}
-            {days.map((day, indexDay) => {
-              return (
-                <div className="day" key={indexDay}>
-                  {/* On écrit la date en lettre dans la première ligne du planning */}
-                  <div className="dayName">
-                    <p>
-                      {whatTheDay(getDay(day))} {getDate(day)}{" "}
-                      {whatTheMonth(getMonth(day))}
-                    </p>
-                  </div>
-
-                  {/* On crée un timeslot pour chaque hours => Soit vide si pas d'activités à cette heure, soit avec l'activité déjà schedule à cette heure-là */}
-                  {hours.map((hour, indexHour) => {
-                    return (
-                      <TimeSlot
-                        day={day}
-                        startHour={hour}
-                        endHour={hour + 1}
-                        key={indexHour}
-                        travelId={travelId}
-                        activities={activities}
-                        setActivities={setActivities}
-                        token={token}
-                      />
-                    );
-                  })}
-                </div>
-              );
-            })}
+            <div className="activities">
+              {/* On affiche la liste de toutes les activités sélectionnées */}
+              {activities.map((activity, index) => {
+                return (
+                  <ActivityItem
+                    id={activity.activity}
+                    token={token}
+                    key={index}
+                  />
+                );
+              })}
+            </div>
           </div>
         )}
-        <div className="activities">
-          {activities.map((activity, index) => {
-            return (
-              <ActivityItem id={activity.activity} token={token} key={index} />
-            );
-          })}
-        </div>
       </div>
     </DndProvider>
   );

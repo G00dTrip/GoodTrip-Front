@@ -32,3 +32,12 @@
   font-weight: bold;
   font-size: 1.1rem;
 }
+
+.location-item {
+  width: 300px;
+  text-align: left;
+}
+
+.location-item:hover {
+  background-color: aquamarine;
+}
