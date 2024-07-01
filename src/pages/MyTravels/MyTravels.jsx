@@ -27,7 +27,6 @@ const MyTravels = ({ token, setToken }) => {
       getTravels();
     }
   }, [token, reload]);
-
   const deleteTravel = async (travelId) => {
     try {
       const { data } = await axios.delete(
